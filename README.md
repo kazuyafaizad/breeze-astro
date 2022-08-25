@@ -1,46 +1,88 @@
-# Welcome to [Astro](https://astro.build)
+# Laravel Breeze - Astro Edition 🏝️
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
+## Introduction
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+This repository is an implementing of the [Laravel Breeze](https://laravel.com/docs/starter-kits) application / authentication starter kit frontend in [Astro](https://astro.build). All of the authentication boilerplate is already written for you - powered by [Laravel Sanctum](https://laravel.com/docs/sanctum), allowing you to quickly begin pairing your beautiful Astro frontend with a powerful Laravel backend.
 
-## 🚀 Project Structure
+## Official Documentation
 
-Inside of your Astro project, you'll see the following folders and files:
+### Installation
+
+First, create a Next.js compatible Laravel backend by installing Laravel Breeze into a [fresh Laravel application](https://laravel.com/docs/installation) and installing Breeze's API scaffolding:
+
+```bash
+# Create the Laravel application...
+laravel new next-backend
+
+cd next-backend
+
+# Install Breeze and dependencies...
+composer require laravel/breeze --dev
+
+php artisan breeze:install api
+```
+
+Next, ensure that your application's `APP_URL` and `FRONTEND_URL` environment variables are set to `http://localhost:8000` and `http://localhost:3000`, respectively.
+
+After defining the appropriate environment variables, you may serve the Laravel application using the `serve` Artisan command:
+
+```bash
+# Serve the application...
+php artisan serve
+```
+
+Next, clone this repository and install its dependencies with `yarn install` or `npm install`. Then, copy the `.env.example` file to `.env.local` and supply the URL of your backend:
 
 ```
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Finally, run the application via `npm run dev`. The application will be available at `http://localhost:3000`:
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```
+npm run dev
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+> Note: Currently, we recommend using `localhost` during local development of your backend and frontend to avoid CORS "Same-Origin" issues.
 
-## 🧞 Commands
+### Authentication Hook
 
-All commands are run from the root of the project, from a terminal:
+This Next.js application contains a custom `useAuth` React hook, designed to abstract all authentication logic away from your pages. In addition, the hook can be used to access the currently authenticated user:
 
-| Command                | Action                                             |
-| :--------------------- | :------------------------------------------------- |
-| `npm install`          | Installs dependencies                              |
-| `npm run dev`          | Starts local dev server at `localhost:3000`        |
-| `npm run build`        | Build your production site to `./dist/`            |
-| `npm run preview`      | Preview your build locally, before deploying       |
-| `npm run astro ...`    | Run CLI commands like `astro add`, `astro preview` |
-| `npm run astro --help` | Get help using the Astro CLI                       |
+```js
+const ExamplePage = () => {
+    const { logout, user } = useAuth({ middleware: 'auth' })
 
-## 👀 Want to learn more?
+    return (
+        <>
+            <p>{user?.name}</p>
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+            <button onClick={logout}>Sign out</button>
+        </>
+    )
+}
+
+export default ExamplePage
+```
+
+> Note: You will need to use [optional chaining](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining) (`user?.name` instead of `user.name`) when accessing properties on the user object to account for Next.js's initial server-side render.
+
+### Named Routes
+
+For convenience, [Ziggy](https://github.com/tighten/ziggy#spas-or-separate-repos) may be used to reference your Laravel application's named route URLs from your React application.
+
+## Contributing
+
+Thank you for considering contributing to Breeze Next! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+
+## Code of Conduct
+
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+
+## Security Vulnerabilities
+
+Please review [our security policy](https://github.com/laravel/breeze-next/security/policy) on how to report security vulnerabilities.
+
+## License
+
+Laravel Breeze Next is open-sourced software licensed under the [MIT license](LICENSE.md).
