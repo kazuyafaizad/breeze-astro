@@ -1,0 +1,41 @@
+---
+import Layout from '../layouts/GuestLayout.astro';
+import AuthCard from '../components/AuthCard.astro';
+import Label from '../components/Label.astro';
+import Input from '../components/Input.astro';
+export interface Props {
+	user: string;
+}
+
+const { user } = Astro.props as Props;
+---
+
+
+<Layout title="Login">
+
+    <AuthCard>
+        <form >
+                    <div>
+                        <Label htmlFor="email">Email</Label>
+
+                        <Input
+
+                        />
+
+
+                    </div>
+
+                    <div class="mt-4">
+                        <Label htmlFor="email">Password</Label>
+
+                        <Input
+
+                        />
+
+
+                    </div>
+        </form>
+    </AuthCard>
+
+</Layout>
+

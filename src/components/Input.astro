@@ -1,0 +1,19 @@
+---
+export interface Props {
+	title: string;
+	body: string;
+	href: string;
+  disabled:boolean,
+  className:string
+}
+
+// className=`${className} rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50`
+
+const { href, title, body,disabled, } = Astro.props as Props;
+---
+
+  <input
+    disabled={disabled}
+    class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+
+  />
