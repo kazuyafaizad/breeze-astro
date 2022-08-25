@@ -1,5 +1,8 @@
 # Laravel Breeze - Astro Edition 🏝️
 
+
+## Not sure if it worth to try? but Island architecture look nice
+
 ## Introduction
 
 This repository is an implementing of the [Laravel Breeze](https://laravel.com/docs/starter-kits) application / authentication starter kit frontend in [Astro](https://astro.build). All of the authentication boilerplate is already written for you - powered by [Laravel Sanctum](https://laravel.com/docs/sanctum), allowing you to quickly begin pairing your beautiful Astro frontend with a powerful Laravel backend.
